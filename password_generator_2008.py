@@ -47,7 +47,7 @@ def generate_password_batch(args):
     
     return generated_passwords
 
-def generate_passwords(start_date, end_date, methods, num_passwords=None, charset="alnum", lengths=[10, 11, 12, 13, 14, 15, 16], timezone_offsets=[0]):
+def generate_passwords(start_date, end_date, methods, num_passwords=1000, charset="alnum", lengths=[10, 11, 12, 13, 14, 15, 16], timezone_offsets=[0]):
     """ Генератор паролей с привязкой ко времени и разными тайм-зонами """
     start_timestamp = int(time.mktime(datetime.strptime(start_date, "%d.%m.%Y").timetuple()))
     end_timestamp = int(time.mktime(datetime.strptime(end_date, "%d.%m.%Y").timetuple()))
@@ -61,7 +61,7 @@ def generate_passwords(start_date, end_date, methods, num_passwords=None, charse
         adjusted_start = int(start_timestamp + timezone_offset * 3600)
         adjusted_end = int(end_timestamp + timezone_offset * 3600)
         
-        for timestamp in range(adjusted_start, adjusted_end, 3600):  # Перебираем по часам
+        for timestamp in range(adjusted_start, adjusted_end, 1):  # Перебираем по часам
             for method in methods:
                 for length in lengths:
                     tasks.append((timestamp, method, length, charset, timezone_offset))
@@ -79,7 +79,7 @@ def generate_passwords(start_date, end_date, methods, num_passwords=None, charse
     pool.close()
     pool.join()
     
-    return list(generated_passwords)[:num_passwords] if num_passwords else list(generated_passwords)
+    return list(generated_passwords)[:num_passwords]
 
 # Выбор генераторов, которые имитируют 2008-2009 годы
 methods = [linear_congruential_generator, mersenne_twister, sha1_based_generator]
