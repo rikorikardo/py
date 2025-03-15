@@ -96,7 +96,7 @@ timezone_offsets = [0, 5.5, -5, -8]  # Великобритания (UTC+0), И�
 password_list = generate_passwords(start_date, end_date, methods, num_passwords, charset, lengths, timezone_offsets)
 
 # Сохраняем пароли в файл для использования с hashcat
-password_file_path = "passwords_2008_2009.txt"
+password_file_path = f"passwords_{start_date.replace('.', '_')}_to_{end_date.replace('.', '_')}.txt"
 with open(password_file_path, "w") as f:
     for password in password_list:
         f.write(password + "\n")
