@@ -21,7 +21,7 @@ def mersenne_twister(seed):
 def sha1_based_generator(seed):
     """ SHA-1 генератор, использовался в некоторых старых программах """
     while True:
-        seed = hashlib.sha1(seed.encode()).hexdigest()
+        seed = hashlib.sha1(str(seed).encode()).hexdigest()
         yield int(seed[:8], 16)  # Берем первые 8 символов как число
 
 def generate_password_batch(args):
