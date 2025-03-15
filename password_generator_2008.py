@@ -68,7 +68,7 @@ def generate_passwords(start_date, end_date, methods, num_passwords=1000, charse
     
     # Прогресс-бар
     total_iterations = len(tasks)
-    progress = tqdm(total=total_iterations, desc="Генерация паролей", unit="пароль")
+    progress = tqdm(total=total_iterations, desc="Генерация паролей", unit="пароль", position=0, leave=True)
     
     # Параллельное выполнение
     for result in pool.imap_unordered(generate_password_batch, tasks):
